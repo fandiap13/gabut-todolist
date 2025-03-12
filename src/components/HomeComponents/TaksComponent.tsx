@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { CiMenuKebab } from 'react-icons/ci'
-import { FaRegTrashAlt } from 'react-icons/fa'
+import { FaEdit, FaRegTrashAlt } from 'react-icons/fa'
 import { IoCalendarClear, IoTime } from 'react-icons/io5'
 
 interface TaksComponentProps {
@@ -56,6 +56,7 @@ const TaksComponent: React.FC<TaksComponentProps> = ({ date, isActive, onCheck, 
                 <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="cursor-pointer"><CiMenuKebab className="w-6 h-6" /></div>
                     <ul tabIndex={0} className="dropdown-content menu bg-white text-bgdark rounded-box z-1 w-[100px] p-1 shadow-sm">
+                        <li><div><FaEdit className="w-4 h-4" /> <span>Edit</span></div></li>
                         <li><div><FaRegTrashAlt className="w-4 h-4" /> <span>Delete</span></div></li>
                     </ul>
                 </div>
