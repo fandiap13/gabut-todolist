@@ -1,15 +1,14 @@
-"use client";
-
 import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
-import { IoLogOut, IoTime } from 'react-icons/io5'
+import { IoTime } from 'react-icons/io5'
 import SummaryCard from './SummaryCard'
 import TaksComponent from './TaksComponent'
 import LoadingPageComponent from '../LoadingPageComponent'
 import { FaPlus } from 'react-icons/fa6';
+import { prisma } from '@/lib/prisma';
+import Navbar from '../LayoutComponents/Navbar'
 
 const BodyHome = () => {
-    const today = Date.now();
     const [isClientPage, setIsClientPage] = useState<boolean>(false);
 
     useEffect(() => {
@@ -24,19 +23,7 @@ const BodyHome = () => {
 
     return (
         <main className="w-full h-full min-h-screen bg-gradient-to-bl from-[#1E1F26] to-[#363058] text-white">
-            <div className="flex items-center px-8 py-6 justify-between">
-                <h1 className="text-2xl font-semibold">
-                    Halo, Fandi
-                </h1>
-
-                <motion.button
-                    className="flex items-center justify-center cursor-pointer"
-                    whileHover={{ scale: 1.05 }}
-                >
-                    <IoLogOut className="w-8 h-8 mr-2" />
-                    <span className="font-medium text-lg">Sign Out</span>
-                </motion.button>
-            </div>
+            <Navbar />
 
             <div className="max-w-screen-xl mx-auto px-10 py-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-4 gap-x-6">
@@ -52,9 +39,9 @@ const BodyHome = () => {
                             <h3 className="text-2xl font-semibold">Today's Tasks</h3>
                             <button className="btn btn-primary"
                                 onClick={() => {
-                                    if (document?.getElementById('my_modal_5')) {
-                                        document.getElementById('my_modal_5').showModal();
-                                    }
+                                    // if (document?.getElementById('my_modal_5')) {
+                                    //     document.getElementById('my_modal_5').showModal();
+                                    // }
                                 }}>
                                 <FaPlus className='w-5 h-5 mr-1' /> open modal
                             </button>

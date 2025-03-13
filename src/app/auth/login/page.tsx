@@ -1,15 +1,18 @@
 "use client"
 
 import LoadingPageComponent from "@/components/LoadingPageComponent";
+import SignInWithGoogle from "@/components/LoginComponents/SignInWithGoogle";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function LoginPage() {
   const [isClientPage, setIsClientPage] = useState<boolean>(false);
 
+
   useEffect(() => {
     setIsClientPage(true)
   }, []);
+
 
   if (!isClientPage) {
     return (
@@ -33,20 +36,10 @@ export default function LoginPage() {
               />
             </div>
             <h2 className="text-4xl font-bold mb-3">Atur List Kegiatan Lu</h2>
-            <p className="text-slate-300 text-lg">Disini lu cuma bisa login page google, jangan ngelunjak minta merdeka</p>
+            <p className="text-slate-300 text-lg">Disini lu cuma bisa login page google, jangan ngelunjak.</p>
           </div>
 
-          <button type="button" className="bg-white/20 hover:bg-white/30 transition-all backdrop-blur-lg px-6 py-2 rounded-xl cursor-pointer font-semibold min-w-[400px] max-w-full" onClick={() => alert("halod")}>
-            <div className="flex items-center justify-center">
-              <Image
-                src="/google-logo.png"
-                alt="Logo Google"
-                width={50}
-                height={50}
-              />
-              <span>Sign In With Google</span>
-            </div>
-          </button>
+          <SignInWithGoogle />
         </div>
       </div>
     </div>

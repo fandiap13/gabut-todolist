@@ -2,12 +2,12 @@ import React from "react";
 import { FaCircleNotch } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 
-interface LoadingComponentNewProps {
+interface LoadingProcessComponentProps {
     loading?: boolean;
     title?: string;
 }
 
-const LoadingComponentNew: React.FC<LoadingComponentNewProps> = ({
+const LoadingProcessComponent: React.FC<LoadingProcessComponentProps> = ({
     loading = false,
     title,
 }) => {
@@ -25,8 +25,8 @@ const LoadingComponentNew: React.FC<LoadingComponentNewProps> = ({
                         exit={{ opacity: 0, y: 20 }}
                         transition={{ duration: 0.3, ease: "easeInOut" }}
                     >
-                        <FaCircleNotch className="h-14 w-14 animate-spin text-primary/80" />
-                        <h3 className="text-slate-800 font-semibold text-lg mt-3">
+                        <FaCircleNotch className="h-14 w-14 animate-spin text-[#363058]" />
+                        <h3 className="text-[#363058] font-semibold text-lg mt-3">
                             {title ?? "Tunggu Proses..."}
                         </h3>
                     </motion.div>
@@ -36,4 +36,4 @@ const LoadingComponentNew: React.FC<LoadingComponentNewProps> = ({
     );
 };
 
-export default LoadingComponentNew;
+export default LoadingProcessComponent;
