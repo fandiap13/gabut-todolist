@@ -5,8 +5,13 @@ import { NextResponse } from "next/server";
 export async function GET(req: Request) {
   try {
     const url = new URL(req.url);
+    const user_id = url.searchParams.get("user_id");
     const status = url.searchParams.get("status");
     let existingTask: any = [];
+
+    if (!user_id) {
+      return NextResponse.json({ error: "User Id Not Found" }, { status: 404 });
+    }
 
     // count
     // Get the current date
@@ -17,6 +22,7 @@ export async function GET(req: Request) {
     // Count tasks for today
     const todayCount = await prisma.task.count({
       where: {
+        user_id: parseInt(user_id),
         task_date: {
           gte: startOfDay,
           lte: endOfDay,
@@ -28,6 +34,7 @@ export async function GET(req: Request) {
     const endOfToday = new Date(today.setHours(23, 59, 59, 999));
     const scheduleCount = await prisma.task.count({
       where: {
+        user_id: parseInt(user_id),
         task_date: {
           gt: endOfToday, // Get tasks with task_date greater than the end of today
         },
@@ -35,7 +42,11 @@ export async function GET(req: Request) {
     });
 
     // Count all tasks
-    const allCount = await prisma.task.count();
+    const allCount = await prisma.task.count({
+      where: {
+        user_id: parseInt(user_id),
+      },
+    });
 
     const countData = {
       todayCount,
@@ -51,6 +62,7 @@ export async function GET(req: Request) {
 
       existingTask = await prisma.task.findMany({
         where: {
+          user_id: parseInt(user_id),
           task_date: {
             gte: startOfDay,
             lte: endOfDay,
@@ -67,6 +79,7 @@ export async function GET(req: Request) {
 
       existingTask = await prisma.task.findMany({
         where: {
+          user_id: parseInt(user_id),
           task_date: {
             gt: endOfToday, // Get tasks with task_date greater than the end of today
           },
@@ -78,6 +91,9 @@ export async function GET(req: Request) {
       });
     } else {
       existingTask = await prisma.task.findMany({
+        where: {
+          user_id: parseInt(user_id),
+        },
         include: {
           category: true,
           user: true,

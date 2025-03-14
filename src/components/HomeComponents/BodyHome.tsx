@@ -11,8 +11,11 @@ import AddTaskModal from '../TaskComponents/AddTaskModal'
 import Swal from 'sweetalert2'
 import { CountTaskData, deleteTask, fetchListTask, StatusType, TaskList, updateCheckTask } from '@/services/task/task'
 import LoadingProcessComponent from '../LoadingProcessComponent';
+import { useSession } from 'next-auth/react';
 
 const BodyHome = () => {
+    const user_id = useSession().data?.user?.id;
+
     const [status, setStatus] = useState<StatusType | string>("today");
     const [isClientPage, setIsClientPage] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -31,6 +34,7 @@ const BodyHome = () => {
         try {
             setIsLoading(true);
             const response = await fetchListTask({
+                user_id,
                 status: status,
             });
             setCountData(response.countData);
