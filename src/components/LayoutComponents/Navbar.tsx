@@ -4,8 +4,10 @@ import React, { useState } from 'react'
 import { IoLogOut } from 'react-icons/io5';
 import Swal from 'sweetalert2';
 import LoadingProcessComponent from '../LoadingProcessComponent';
+import { useRouter } from 'next/navigation';
 
 const Navbar = () => {
+    const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const handleLogout = async () => {
         Swal.fire({
@@ -22,12 +24,13 @@ const Navbar = () => {
                 try {
                     await signOut(); // Attempt to sign in
                 } catch (error) {
-                    console.error("Sign in failed:", error);
-                    Swal.fire({
-                        title: 'Sign In Failed!',
-                        text: error ? error.toString() : "Internal server error!",
-                        icon: 'error',
-                    })
+                    console.error("Sign Out failed:", error);
+                    router.push("/auth/login");
+                    // Swal.fire({
+                    //     title: 'Sign Out Failed!',
+                    //     text: error ? error.toString() : "Internal server error!",
+                    //     icon: 'error',
+                    // })
                 } finally {
                     setIsLoading(false);
                 }
@@ -35,12 +38,10 @@ const Navbar = () => {
         });
     }
 
-    const { data, status, update } = useSession();
-
-    console.log({ data });
+    const { data } = useSession();
 
     return (
-        <div className="flex items-center px-8 py-6 justify-between">
+        <div className="flex items-center px-8 h-[80px] justify-between">
             <h1 className="text-2xl font-semibold">
                 {data?.user?.name || "No User Broh"}
             </h1>

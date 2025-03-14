@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 export default function LoginPage() {
   const [isClientPage, setIsClientPage] = useState<boolean>(false);
 
-
   useEffect(() => {
     setIsClientPage(true)
   }, []);

@@ -1,4 +1,4 @@
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import LoadingProcessComponent from '../LoadingProcessComponent';
@@ -8,18 +8,17 @@ const SignInWithGoogle = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const handleLoginGoogle = async () => {
-        setIsLoading(true);
-
         try {
-            await signIn("google", { redirectTo: "/" }); // Attempt to sign in
+            setIsLoading(true);
+            await signIn("google", { redirectTo: "/" });
+            setIsLoading(false);
         } catch (error) {
             console.error("Sign in failed:", error);
             Swal.fire({
                 title: 'Sign In Failed!',
                 text: error ? error.toString() : "Internal server error!",
                 icon: 'error',
-            })
-        } finally {
+            });
             setIsLoading(false);
         }
     }

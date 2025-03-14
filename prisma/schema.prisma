@@ -23,26 +23,27 @@ model User {
 
 model Task {
   task_id     Int      @id @default(autoincrement())
-  task_date   DateTime
+  task_date   DateTime @db.Date // Menggunakan tipe Date di PostgreSQL
+  task_time   DateTime @db.Time // Menggunakan tipe Time di PostgreSQL
   title       String
   description String?
-  status_id   Int
+  status      Int
   category_id Int
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 
-  status   Status   @relation(fields: [status_id], references: [status_id], onDelete: Cascade)
+  // status   Status   @relation(fields: [status_id], references: [status_id], onDelete: Cascade)
   category Category @relation(fields: [category_id], references: [category_id], onDelete: Cascade)
   user     User?    @relation(fields: [user_id], references: [user_id], onDelete: SetNull)
 
   user_id Int? // Menambahkan user_id sebagai foreign key ke User
 }
 
-model Status {
-  status_id Int    @id @default(autoincrement())
-  name      String @unique
-  tasks     Task[] // Relasi ke Task
-}
+// model Status {
+//   status_id Int    @id @default(autoincrement())
+//   name      String @unique
+//   tasks     Task[] // Relasi ke Task
+// }
 
 model Category {
   category_id Int    @id @default(autoincrement())

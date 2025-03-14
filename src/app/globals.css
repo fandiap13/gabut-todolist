@@ -10,6 +10,14 @@
   --color-primary: #363058;
 }
 
+.swal2-front {
+  z-index: 9999 !important;
+}
+
+.my-swal {
+  z-index: X !important;
+}
+
 /* :root {
   --background: #ffffff;
   --foreground: #171717;

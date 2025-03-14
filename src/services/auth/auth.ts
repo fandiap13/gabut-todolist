@@ -1,7 +1,19 @@
-"use server";
+import axiosInstance from "../api/axiosInstance";
 
-import { signIn } from "next-auth/react";
-
-export async function handleGoogleSignIn() {
-  await signIn("google");
-}
+export const storeUserLogin = async ({
+  email,
+  name,
+}: {
+  email: string | null;
+  name: string | null;
+}): Promise<any> => {
+  try {
+    const response = await axiosInstance.post(`/login`, {
+      email,
+      name,
+    });
+    return response.data;
+  } catch (error: any) {
+    throw error;
+  }
+};
